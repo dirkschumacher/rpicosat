@@ -4,10 +4,10 @@
 #' a satisfiable assignment of the
 #' literals or returns that the formula is not satisfiable.
 #'
-#' @param clause a list of integer vectors. Each vector is a clause.
+#' @param formula a list of integer vectors. Each vector is a clause.
 #'               Each integer identifies a literal. No element must be 0.
 #'               Negative integers are negated literals.
-#' @param assumption an optional integer vector. Assumptions are preset values for literals in your formula.
+#' @param assumptions an optional integer vector. Assumptions are preset values for literals in your formula.
 #'                   Each element correspond to a literal.
 #'                   Negative literals are FALSE, positive TRUE.
 #' @param verbosity_level either 0, 1, 2 where 2 is the most verbose log level.
@@ -20,10 +20,10 @@
 #' picosat_sat(formula, 1) # we set 1 to TRUE
 #' @useDynLib rpicosat rpicosat_solve
 #' @export
-picosat_sat <- function(cnf, assumptions = integer(0), verbosity_level = 0L) {
-  stopifnot(is.list(cnf), length(cnf) > 0)
+picosat_sat <- function(formula, assumptions = integer(0), verbosity_level = 0L) {
+  stopifnot(is.list(formula), length(formula) > 0)
 
-  literals <- unlist(lapply(cnf, function(x) {
+  literals <- unlist(lapply(formula, function(x) {
     if (any(x == 0) || anyNA(x)) stop("literals cannot be 0 or NA.", call. = FALSE)
     c(as.integer(x), 0L)
   }), use.names = FALSE)
@@ -45,7 +45,7 @@ picosat_sat <- function(cnf, assumptions = integer(0), verbosity_level = 0L) {
   if (any(is.na(assignment))) {
     solution_vector <- NA
   } else {
-    solution_vector <- setNames(assignment > 0, abs(assignment))
+    solution_vector <- stats::setNames(assignment > 0, abs(assignment))
   }
   out <- list(
     solution_status = if (res[[1]] == 10) "PICOSAT_SATISFIABLE"

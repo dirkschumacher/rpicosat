@@ -4,18 +4,18 @@
 \alias{picosat_sat}
 \title{Solve SAT problems with the PicoSAT solver}
 \usage{
-picosat_sat(cnf, assumptions = integer(0), verbosity_level = 0L)
+picosat_sat(formula, assumptions = integer(0), verbosity_level = 0L)
 }
 \arguments{
-\item{verbosity_level}{either 0, 1, 2 where 2 is the most verbose log level.}
-
-\item{clause}{a list of integer vectors. Each vector is a clause.
+\item{formula}{a list of integer vectors. Each vector is a clause.
 Each integer identifies a literal. No element must be 0.
 Negative integers are negated literals.}
 
-\item{assumption}{an optional integer vector. Assumptions are preset values for literals in your formula.
+\item{assumptions}{an optional integer vector. Assumptions are preset values for literals in your formula.
 Each element correspond to a literal.
 Negative literals are FALSE, positive TRUE.}
+
+\item{verbosity_level}{either 0, 1, 2 where 2 is the most verbose log level.}
 }
 \description{
 The solver takes a formula in conjunctive normal form and finds
