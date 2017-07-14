@@ -1,0 +1,15 @@
+Package: rpicosat
+Type: Package
+Title: Bindings to the PicoSAT solver
+Authors@R: c(
+  person("Dirk", "Schumacher", email = "mail@dirk-schumacher.net", role = c("aut", "cre")),
+  person("Armin", "Biere", role = c("ctb", "cph"), comment = "Author and copyright holder of PicoSAT"))
+Version: 0.1.0
+Description: Use the PicoSAT solver to solve SAT problems.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Bytecompile: true
+RoxygenNote: 6.0.1
+Suggests: testthat,
+    covr
