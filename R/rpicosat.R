@@ -18,7 +18,7 @@
 #'  c(-2, 3)  # 2 => 3
 #' )
 #' picosat_sat(formula, 1) # we set 1 to TRUE
-#' @useDynLib "rpicosat", .registration=TRUE
+#' @useDynLib rpicosat, .registration=TRUE
 #' @export
 picosat_sat <- function(formula, assumptions = integer(0), verbosity_level = 0L) {
   stopifnot(is.list(formula), length(formula) > 0)

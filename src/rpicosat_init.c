@@ -1,5 +1,7 @@
+#include <R.h>
+#include <Rinternals.h>
+#include <stdlib.h> // for NULL
 #include <R_ext/Rdynload.h>
-#include "r_picosat.h"
 
 extern SEXP rpicosat_solve(SEXP, SEXP, SEXP);
 
@@ -10,5 +12,5 @@ static const R_CallMethodDef cCalls[] = {
 
 void R_init_rpicosat(DllInfo *info) {
   R_registerRoutines(info, NULL, cCalls, NULL, NULL);
-  R_useDynamicSymbols(info, TRUE);
+  R_useDynamicSymbols(info, FALSE);
 }
