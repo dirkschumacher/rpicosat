@@ -42,7 +42,7 @@ picosat_sat <- function(formula, assumptions = integer(0), verbosity_level = 0L)
 
   # convert to a
   assignment <- res[[2]]
-  if (any(is.na(assignment))) {
+  if (anyNA(assignment)) {
     solution_vector <- NA
   } else {
     solution_vector <- stats::setNames(assignment > 0, abs(assignment))
