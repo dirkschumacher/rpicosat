@@ -18,7 +18,7 @@
 #'  c(-2, 3)  # 2 => 3
 #' )
 #' picosat_sat(formula, 1) # we set 1 to TRUE
-#' @useDynLib rpicosat, .registration=TRUE
+#' @useDynLib rpicosat rpicosat_solve
 #' @export
 picosat_sat <- function(formula, assumptions = integer(0), verbosity_level = 0L) {
   stopifnot(is.list(formula), length(formula) > 0)
@@ -37,7 +37,7 @@ picosat_sat <- function(formula, assumptions = integer(0), verbosity_level = 0L)
   }
 
   # solve it
-  res <- .Call(rpicosat_solve, as.integer(literals),
+  res <- .Call("rpicosat_solve", as.integer(literals),
                as.integer(assumptions), as.integer(verbosity_level), PACKAGE = "rpicosat")
 
   # convert to a
