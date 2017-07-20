@@ -13,6 +13,12 @@ Install
 devtools::install_github("dirkschumacher/rpicosat")
 ```
 
+API
+---
+
+-   `picosat_sat` can solve a SAT problem. The result is a tibble + meta data, so you can use it with `dplyr` et al.
+-   `picosat_solution_status` applied to the result of `picosat_sat` returns either `PICOSAT_SATISFIABLE`, `PICOSAT_UNSATISFIABLE` or `PICOSAT_UNKNOWN`
+
 Example
 -------
 
