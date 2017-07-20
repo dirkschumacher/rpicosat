@@ -4,8 +4,12 @@ test_that("solves basic examples", {
       c(-2, 3)  # 2 => 3
   )
   res <- picosat_sat(formula, 1)
-  expect_equal("PICOSAT_SATISFIABLE", res$solution_status)
-  expect_equal(c("1" = TRUE, "2" = TRUE, "3" = TRUE), res$solution)
+  expect_equal("PICOSAT_SATISFIABLE", picosat_solution_status(res))
+  expected <- tibble::tibble(
+    variable = c(1L, 2L, 3L),
+    value = c(TRUE, TRUE, TRUE)
+  )
+  expect_equivalent(expected, res)
 })
 
 test_that("handles unsatisfiable results", {
@@ -14,8 +18,8 @@ test_that("handles unsatisfiable results", {
     c(-1)
   )
   res <- picosat_sat(formula)
-  expect_equal("PICOSAT_UNSATISFIABLE", res$solution_status)
-  expect_equal(NA, res$solution)
+  expect_equal("PICOSAT_UNSATISFIABLE", picosat_solution_status(res))
+  expect_equivalent(data.frame(variable = integer(0), value = logical()), res)
 })
 
 test_that("fails if a literal is 0", {

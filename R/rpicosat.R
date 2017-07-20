@@ -12,6 +12,9 @@
 #'                   Negative literals are FALSE, positive TRUE.
 #' @param verbosity_level either 0, 1, 2 where 2 is the most verbose log level.
 #'
+#' @return a data.frame with two columns, variable and value. In case the solution status
+#'   is not PICOSAT_SATISFIABLE the resulting data.frame has 0 rows.
+#'
 #' @examples
 #' formula <- list(
 #'  c(-1, 2), # 1 => 2
@@ -23,10 +26,11 @@
 picosat_sat <- function(formula, assumptions = integer(0), verbosity_level = 0L) {
   stopifnot(is.list(formula), length(formula) > 0)
 
-  literals <- unlist(lapply(formula, function(x) {
+  literals <- as.integer(unlist(lapply(formula, function(x) {
+    if (!is.numeric(x)) stop("Clauses must be integer vectors.", call. = FALSE)
     if (any(x == 0) || anyNA(x)) stop("literals cannot be 0 or NA.", call. = FALSE)
-    c(as.integer(x), 0L)
-  }), use.names = FALSE)
+    c(x, 0L)
+  }), use.names = FALSE))
 
   stopifnot(length(literals) > 0, is.integer(literals))
   stopifnot(length(assumptions) <= length(literals), is.numeric(literals))
@@ -42,16 +46,57 @@ picosat_sat <- function(formula, assumptions = integer(0), verbosity_level = 0L)
 
   # convert to a
   assignment <- res[[2]]
-  if (anyNA(assignment)) {
-    solution_vector <- NA
+  if (!anyNA(assignment) && res[[1]] == 10) {
+    solution_df <- tibble::as_tibble(data.frame(variable = as.integer(abs(assignment)),
+                                                value = assignment > 0))
   } else {
-    solution_vector <- stats::setNames(assignment > 0, abs(assignment))
+    solution_df <- tibble::as_tibble(data.frame(variable = integer(0),
+                                                value = logical(0)))
   }
-  out <- list(
-    solution_status = if (res[[1]] == 10) "PICOSAT_SATISFIABLE"
+  solution_status <- if (res[[1]] == 10) "PICOSAT_SATISFIABLE"
                       else if (res[[1]] == 20) "PICOSAT_UNSATISFIABLE"
-                      else "PICOSAT_UNKNOWN",
-    solution = solution_vector
+                      else "PICOSAT_UNKNOWN"
+  class(solution_df) <- c("picosat_solution", class(solution_df))
+  attr(solution_df, "picosat_solution_status") <- solution_status
+  solution_df
+}
+
+
+#' Get the solution status
+#'
+#' @param x a solution from the solver
+#'
+#' @return character either PICOSAT_SATISFIABLE,
+#'   PICOSAT_UNSATISFIABLE or PICOSAT_UNKNOWN
+#'
+#' @export
+#' @rdname picosat_solution_status
+picosat_solution_status <- function(x) {
+  UseMethod("picosat_solution_status")
+}
+
+#' @export
+#' @rdname picosat_solution_status
+picosat_solution_status.picosat_solution <- function(x) {
+  attr(x, "picosat_solution_status", exact = TRUE)
+}
+
+#' @export
+#' @rdname picosat_solution_status
+format.picosat_solution <- function(x) {
+  solver_status <- picosat_solution_status(x)
+  paste0(
+    if (solver_status == "PICOSAT_SATISFIABLE") {
+      paste0("Variables: ", length(unique(x$variable)), "\n")
+    },
+    "Solver status: ", solver_status
   )
-  out
+}
+
+#' @export
+#' @rdname picosat_solution_status
+print.picosat_solution <- function(x) {
+  cat(format(x))
+  cat("\n")
+  invisible()
 }

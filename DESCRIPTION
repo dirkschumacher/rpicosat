@@ -13,6 +13,6 @@ Bytecompile: true
 RoxygenNote: 6.0.1
 NeedsCompilation: yes
 Depends: R (>= 3.3.0)
-Imports: stats
+Imports: stats, tibble
 Suggests: testthat,
     covr

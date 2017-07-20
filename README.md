@@ -32,31 +32,21 @@ formula <- list(
   c(-3, 1)
 )
 picosat_sat(formula)
-#> $solution_status
-#> [1] "PICOSAT_SATISFIABLE"
-#> 
-#> $solution
-#>     1     2     3 
-#> FALSE FALSE FALSE
+#> Variables: 3
+#> Solver status: PICOSAT_SATISFIABLE
 ```
+
+Every result is also a `tibble` so you can process the results with packages like `dplyr`.
 
 We can also test for satisfiability if we assume that a certain literal is `TRUE` or `FALSE`
 
 ``` r
-picosat_sat(formula, 1) # assume A is TRUE
-#> $solution_status
-#> [1] "PICOSAT_SATISFIABLE"
-#> 
-#> $solution
-#>    1    2    3 
-#> TRUE TRUE TRUE
+picosat_sat(formula, c(1)) # assume A is TRUE
+#> Variables: 3
+#> Solver status: PICOSAT_SATISFIABLE
 ```
 
 ``` r
 picosat_sat(formula, c(1, -3)) # assume A is TRUE, but C is FALSE
-#> $solution_status
-#> [1] "PICOSAT_UNSATISFIABLE"
-#> 
-#> $solution
-#> [1] NA
+#> Solver status: PICOSAT_UNSATISFIABLE
 ```
