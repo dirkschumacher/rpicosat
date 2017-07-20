@@ -16,8 +16,8 @@ devtools::install_github("dirkschumacher/rpicosat")
 API
 ---
 
--   `picosat_sat` can solve a SAT problem. The result is a tibble + meta data, so you can use it with `dplyr` et al.
--   `picosat_solution_status` applied to the result of `picosat_sat` returns either `PICOSAT_SATISFIABLE`, `PICOSAT_UNSATISFIABLE` or `PICOSAT_UNKNOWN`
+-   `picosat_sat` can solve a SAT problem. The result is a `tibble` + meta data, so you can use it with `dplyr` et al.
+-   `picosat_solution_status` applied to the result of `picosat_sat` returns either *PICOSAT\_SATISFIABLE*, *PICOSAT\_UNSATISFIABLE* or *PICOSAT\_UNKNOWN*
 
 Example
 -------
@@ -30,13 +30,18 @@ This can be formulated as a CNF (conjunctive normal form):
 
 (¬*A* ∨ *B*)∧(¬*B* ∨ *C*)∧(¬*C* ∨ *A*)
 
+In `rpicosat` the problem is encoded as a list of integer vectors.
+
 ``` r
-library(rpicosat)
 formula <- list(
   c(-1, 2),
   c(-2, 3),
   c(-3, 1)
 )
+```
+
+``` r
+library(rpicosat)
 picosat_sat(formula)
 #> Variables: 3
 #> Solver status: PICOSAT_SATISFIABLE
