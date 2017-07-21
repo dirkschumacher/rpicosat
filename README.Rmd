@@ -63,10 +63,16 @@ formula <- list(
 
 ```{r example}
 library(rpicosat)
-picosat_sat(formula)
+res <- picosat_sat(formula)
+res
 ```
 
 Every result is also a `tibble` so you can process the results with packages like `dplyr`.
+
+```{r}
+as.data.frame(res)
+```
+
 
 We can also test for satisfiability if we assume that a certain literal is `TRUE` or `FALSE`
 

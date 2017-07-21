@@ -42,12 +42,21 @@ formula <- list(
 
 ``` r
 library(rpicosat)
-picosat_sat(formula)
+res <- picosat_sat(formula)
+res
 #> Variables: 3
 #> Solver status: PICOSAT_SATISFIABLE
 ```
 
 Every result is also a `tibble` so you can process the results with packages like `dplyr`.
+
+``` r
+as.data.frame(res)
+#>   variable value
+#> 1        1 FALSE
+#> 2        2 FALSE
+#> 3        3 FALSE
+```
 
 We can also test for satisfiability if we assume that a certain literal is `TRUE` or `FALSE`
 
