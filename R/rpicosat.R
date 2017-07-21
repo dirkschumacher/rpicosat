@@ -61,7 +61,6 @@ picosat_sat <- function(formula, assumptions = integer(0), verbosity_level = 0L)
   solution_df
 }
 
-
 #' Get the solution status
 #'
 #' @param x a solution from the solver
@@ -82,8 +81,7 @@ picosat_solution_status.picosat_solution <- function(x) {
 }
 
 #' @export
-#' @rdname picosat_solution_status
-format.picosat_solution <- function(x) {
+format.picosat_solution <- function(x, ...) {
   solver_status <- picosat_solution_status(x)
   paste0(
     if (solver_status == "PICOSAT_SATISFIABLE") {
@@ -94,8 +92,7 @@ format.picosat_solution <- function(x) {
 }
 
 #' @export
-#' @rdname picosat_solution_status
-print.picosat_solution <- function(x) {
+print.picosat_solution <- function(x, ...) {
   cat(format(x))
   cat("\n")
   invisible()

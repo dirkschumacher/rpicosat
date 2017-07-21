@@ -17,6 +17,10 @@ Negative literals are FALSE, positive TRUE.}
 
 \item{verbosity_level}{either 0, 1, 2 where 2 is the most verbose log level.}
 }
+\value{
+a data.frame with two columns, variable and value. In case the solution status
+  is not PICOSAT_SATISFIABLE the resulting data.frame has 0 rows.
+}
 \description{
 The solver takes a formula in conjunctive normal form and finds
 a satisfiable assignment of the

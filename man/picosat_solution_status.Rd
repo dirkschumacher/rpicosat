@@ -3,17 +3,11 @@
 \name{picosat_solution_status}
 \alias{picosat_solution_status}
 \alias{picosat_solution_status.picosat_solution}
-\alias{format.picosat_solution}
-\alias{print.picosat_solution}
 \title{Get the solution status}
 \usage{
 picosat_solution_status(x)
 
 \method{picosat_solution_status}{picosat_solution}(x)
-
-\method{format}{picosat_solution}(x)
-
-\method{print}{picosat_solution}(x)
 }
 \arguments{
 \item{x}{a solution from the solver}
