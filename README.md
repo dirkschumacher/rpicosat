@@ -16,7 +16,7 @@ devtools::install_github("dirkschumacher/rpicosat")
 API
 ---
 
--   `picosat_sat` can solve a SAT problem. The result is a `tibble` + meta data, so you can use it with `dplyr` et al.
+-   `picosat_sat` can solve a SAT problem. The result is a `data.frame` + meta data, so you can use it with `dplyr` et al.
 -   `picosat_solution_status` applied to the result of `picosat_sat` returns either *PICOSAT\_SATISFIABLE*, *PICOSAT\_UNSATISFIABLE* or *PICOSAT\_UNKNOWN*
 
 Example
@@ -48,7 +48,7 @@ res
 #> Solver status: PICOSAT_SATISFIABLE
 ```
 
-Every result is also a `tibble` so you can process the results with packages like `dplyr`.
+Every result is also a `data.frame` so you can process the results with packages like `dplyr`.
 
 ``` r
 as.data.frame(res)

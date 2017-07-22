@@ -23,7 +23,8 @@
 #' picosat_sat(formula, 1) # we set 1 to TRUE
 #' @useDynLib rpicosat rpicosat_solve
 #' @export
-picosat_sat <- function(formula, assumptions = integer(0), verbosity_level = 0L) {
+picosat_sat <- function(formula, assumptions = integer(0),
+                        verbosity_level = 0L) {
   stopifnot(is.list(formula), length(formula) > 0)
 
   literals <- as.integer(unlist(lapply(formula, function(x) {
@@ -47,11 +48,11 @@ picosat_sat <- function(formula, assumptions = integer(0), verbosity_level = 0L)
   # convert to a
   assignment <- res[[2]]
   if (!anyNA(assignment) && res[[1]] == 10) {
-    solution_df <- tibble::as_tibble(data.frame(variable = as.integer(abs(assignment)),
-                                                value = assignment > 0))
+    solution_df <- data.frame(variable = as.integer(abs(assignment)),
+                              value = assignment > 0)
   } else {
-    solution_df <- tibble::as_tibble(data.frame(variable = integer(0),
-                                                value = logical(0)))
+    solution_df <- data.frame(variable = integer(0),
+                              value = logical(0))
   }
   solution_status <- if (res[[1]] == 10) "PICOSAT_SATISFIABLE"
                       else if (res[[1]] == 20) "PICOSAT_UNSATISFIABLE"

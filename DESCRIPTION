@@ -15,6 +15,6 @@ URL: https://github.com/dirkschumacher/rpicosat
 BugReports: https://github.com/dirkschumacher/rpicosat/issues
 NeedsCompilation: yes
 Depends: R (>= 3.3.0)
-Imports: stats, tibble
+Imports: stats
 Suggests: testthat,
     covr
