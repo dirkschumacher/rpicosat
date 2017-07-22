@@ -26,6 +26,10 @@ test_that("fails if a literal is 0", {
   expect_error(picosat_sat(list(c(1, 0))))
 })
 
+test_that("fails if a literal is not numeric", {
+  expect_error(picosat_sat(list(c("1", "2"))))
+})
+
 test_that("fails if a literal is NA", {
   expect_error(picosat_sat(list(c(1, NA))))
 })
