@@ -4,7 +4,7 @@
 \alias{picosat_sat}
 \title{Solve SAT problems with the PicoSAT solver}
 \usage{
-picosat_sat(formula, assumptions = integer(0), verbosity_level = 0L)
+picosat_sat(formula, assumptions = integer(0))
 }
 \arguments{
 \item{formula}{a list of integer vectors. Each vector is a clause.
@@ -14,8 +14,6 @@ Negative integers are negated literals.}
 \item{assumptions}{an optional integer vector. Assumptions are preset values for literals in your formula.
 Each element correspond to a literal.
 Negative literals are FALSE, positive TRUE.}
-
-\item{verbosity_level}{either 0, 1, 2 where 2 is the most verbose log level.}
 }
 \value{
 a data.frame with two columns, variable and value. In case the solution status

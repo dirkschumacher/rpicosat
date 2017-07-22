@@ -3,7 +3,7 @@
 #include <Rinternals.h>
 #include "r_picosat.h"
 
-SEXP rpicosat_solve(SEXP literals, SEXP assumptions, SEXP verbose) {
+SEXP rpicosat_solve(SEXP literals, SEXP assumptions) {
   PicoSAT *pico_ptr = picosat_init();
 
   // add the clauses
@@ -17,9 +17,6 @@ SEXP rpicosat_solve(SEXP literals, SEXP assumptions, SEXP verbose) {
   for (int i = 0; i < n_assumptions; i++) {
     picosat_assume(pico_ptr, INTEGER(assumptions)[i]);
   }
-
-  // set verbosity level
-  picosat_set_verbosity(pico_ptr, asInteger(verbose));
 
   // solve it
   int res = picosat_sat(pico_ptr, -1);

@@ -10,7 +10,6 @@
 #' @param assumptions an optional integer vector. Assumptions are preset values for literals in your formula.
 #'                   Each element correspond to a literal.
 #'                   Negative literals are FALSE, positive TRUE.
-#' @param verbosity_level either 0, 1, 2 where 2 is the most verbose log level.
 #'
 #' @return a data.frame with two columns, variable and value. In case the solution status
 #'   is not PICOSAT_SATISFIABLE the resulting data.frame has 0 rows.
@@ -23,8 +22,7 @@
 #' picosat_sat(formula, 1) # we set 1 to TRUE
 #' @useDynLib rpicosat rpicosat_solve
 #' @export
-picosat_sat <- function(formula, assumptions = integer(0),
-                        verbosity_level = 0L) {
+picosat_sat <- function(formula, assumptions = integer(0)) {
   stopifnot(is.list(formula), length(formula) > 0)
 
   literals <- as.integer(unlist(lapply(formula, function(x) {
@@ -35,7 +33,6 @@ picosat_sat <- function(formula, assumptions = integer(0),
 
   stopifnot(length(literals) > 0, is.integer(literals))
   stopifnot(length(assumptions) <= length(literals), is.numeric(literals))
-  stopifnot(length(verbosity_level) == 1, verbosity_level >= 0L, verbosity_level <= 2L)
 
   if (!all(abs(assumptions) %in% unique(abs(literals)))) {
     stop("Some of your assumptions are not part of your literals", call. = FALSE)
@@ -43,7 +40,7 @@ picosat_sat <- function(formula, assumptions = integer(0),
 
   # solve it
   res <- .Call("rpicosat_solve", as.integer(literals),
-               as.integer(assumptions), as.integer(verbosity_level), PACKAGE = "rpicosat")
+               as.integer(assumptions), PACKAGE = "rpicosat")
 
   # convert to a
   assignment <- res[[2]]

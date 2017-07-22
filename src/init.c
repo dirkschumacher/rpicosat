@@ -6,10 +6,10 @@
 #include <R_ext/Rdynload.h>
 
 /* .Call calls */
-extern SEXP rpicosat_solve(SEXP, SEXP, SEXP);
+extern SEXP rpicosat_solve(SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-    {"rpicosat_solve", (DL_FUNC) &rpicosat_solve, 3},
+    {"rpicosat_solve", (DL_FUNC) &rpicosat_solve, 2},
     {NULL, NULL, 0}
 };
 
