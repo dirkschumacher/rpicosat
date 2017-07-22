@@ -37,7 +37,7 @@ picosat_sat <- function(formula, assumptions = integer(0),
   stopifnot(length(assumptions) <= length(literals), is.numeric(literals))
   stopifnot(length(verbosity_level) == 1, verbosity_level >= 0L, verbosity_level <= 2L)
 
-  if (!all(abs(assumptions) %in% abs(literals))) {
+  if (!all(abs(assumptions) %in% unique(abs(literals)))) {
     stop("Some of your assumptions are not part of your literals", call. = FALSE)
   }
 
