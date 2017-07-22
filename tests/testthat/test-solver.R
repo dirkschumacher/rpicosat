@@ -5,7 +5,7 @@ test_that("solves basic examples", {
   )
   res <- picosat_sat(formula, 1)
   expect_equal("PICOSAT_SATISFIABLE", picosat_solution_status(res))
-  expected <- tibble::tibble(
+  expected <- data.frame(
     variable = c(1L, 2L, 3L),
     value = c(TRUE, TRUE, TRUE)
   )
