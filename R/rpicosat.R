@@ -56,6 +56,10 @@ picosat_sat <- function(formula, assumptions = integer(0)) {
                       else "PICOSAT_UNKNOWN"
   class(solution_df) <- c("picosat_solution", class(solution_df))
   attr(solution_df, "picosat_solution_status") <- solution_status
+  attr(solution_df, "picosat_propagations") <- res[[3]]
+  attr(solution_df, "picosat_decisions") <- res[[4]]
+  attr(solution_df, "picosat_visits") <- res[[5]]
+  attr(solution_df, "picosat_seconds") <- res[[6]]
   solution_df
 }
 
@@ -76,6 +80,78 @@ picosat_solution_status <- function(x) {
 #' @rdname picosat_solution_status
 picosat_solution_status.picosat_solution <- function(x) {
   attr(x, "picosat_solution_status", exact = TRUE)
+}
+
+#' Number of propagations
+#'
+#' @param x a solution from the solver
+#'
+#' @return length 1 int vector
+#'
+#' @export
+#' @rdname picosat_propagations
+picosat_propagations <- function(x) {
+  UseMethod("picosat_propagations")
+}
+
+#' @export
+#' @rdname picosat_propagations
+picosat_propagations.picosat_solution <- function(x) {
+  attr(x, "picosat_propagations", exact = TRUE)
+}
+
+#' Number of decisions
+#'
+#' @param x a solution from the solver
+#'
+#' @return length 1 int vector
+#'
+#' @export
+#' @rdname picosat_decisions
+picosat_decisions <- function(x) {
+  UseMethod("picosat_decisions")
+}
+
+#' @export
+#' @rdname picosat_decisions
+picosat_decisions.picosat_solution <- function(x) {
+  attr(x, "picosat_decisions", exact = TRUE)
+}
+
+#' Number of visits
+#'
+#' @param x a solution from the solver
+#'
+#' @return length 1 int vector
+#'
+#' @export
+#' @rdname picosat_visits
+picosat_visits <- function(x) {
+  UseMethod("picosat_visits")
+}
+
+#' @export
+#' @rdname picosat_visits
+picosat_visits.picosat_solution <- function(x) {
+  attr(x, "picosat_visits", exact = TRUE)
+}
+
+#' Solution time in seconds
+#'
+#' @param x a solution from the solver
+#'
+#' @return length 1 numeric vector in seconds
+#'
+#' @export
+#' @rdname picosat_seconds
+picosat_seconds <- function(x) {
+  UseMethod("picosat_seconds")
+}
+
+#' @export
+#' @rdname picosat_seconds
+picosat_seconds.picosat_solution <- function(x) {
+  attr(x, "picosat_seconds", exact = TRUE)
 }
 
 #' @export

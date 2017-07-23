@@ -37,14 +37,28 @@ SEXP rpicosat_solve(SEXP literals, SEXP assumptions) {
     UNPROTECT(1);
   }
 
+  // extract statistics
+  SEXP npropagations = PROTECT(allocVector(INTSXP, 1));
+  INTEGER(npropagations)[0] = picosat_propagations(pico_ptr);
+  SEXP ndecisions = PROTECT(allocVector(INTSXP, 1));
+  INTEGER(ndecisions)[0] = picosat_decisions(pico_ptr);
+  SEXP nvisits = PROTECT(allocVector(INTSXP, 1));
+  INTEGER(nvisits)[0] = picosat_visits(pico_ptr);
+  SEXP seconds = PROTECT(allocVector(REALSXP, 1));
+  REAL(seconds)[0] = picosat_seconds(pico_ptr);
+
   picosat_reset(pico_ptr);
 
   // build return object
   SEXP solution_code = PROTECT(allocVector(INTSXP, 1));
   INTEGER(solution_code)[0] = res;
-  SEXP out = PROTECT(allocVector(VECSXP, 2));
+  SEXP out = PROTECT(allocVector(VECSXP, 6));
   SET_VECTOR_ELT(out, 0, solution_code);
   SET_VECTOR_ELT(out, 1, solution);
-  UNPROTECT(2);
+  SET_VECTOR_ELT(out, 2, npropagations);
+  SET_VECTOR_ELT(out, 3, ndecisions);
+  SET_VECTOR_ELT(out, 4, nvisits);
+  SET_VECTOR_ELT(out, 5, seconds);
+  UNPROTECT(6);
   return out;
 }

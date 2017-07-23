@@ -37,3 +37,25 @@ test_that("fails if a literal is NA", {
 test_that("fails if assumption referes to a unknown literal", {
   expect_error(picosat_sat(list(c(1, 2)), 3))
 })
+
+test_that("it has statistics", {
+  formula <- list(
+    c(-1, 2), # 1 => 2
+    c(-2, 3)  # 2 => 3
+  )
+  res <- picosat_sat(formula, 1)
+  expect_true(picosat_decisions(res) > 0)
+  expect_true(picosat_propagations(res) > 0)
+  expect_true(picosat_seconds(res) >= 0)
+  expect_true(picosat_visits(res) > 0)
+})
+
+test_that("it has a custom result format", {
+  formula <- list(
+    c(-1, 2), # 1 => 2
+    c(-2, 3)  # 2 => 3
+  )
+  res <- picosat_sat(formula, 1)
+  expect_output(print(res), "Variables: 3")
+  expect_true(grepl("Variables: 3", format(res), fixed = TRUE))
+})
