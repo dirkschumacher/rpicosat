@@ -4,8 +4,8 @@ Title: Solve SAT Problems with the PicoSAT Solver
 Authors@R: c(
   person("Dirk", "Schumacher", email = "mail@dirk-schumacher.net", role = c("aut", "cre")),
   person("Armin", "Biere", role = c("ctb", "cph"), comment = "Author and copyright holder of included PicoSAT code"))
-Version: 0.1.0
-Description: Bindings for the PicoSAT solver to solve SAT problems. 
+Version: 1.0.0
+Description: Bindings for the PicoSAT solver to solve SAT problems.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
