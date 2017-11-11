@@ -7,19 +7,25 @@
 #' @param formula a list of integer vectors. Each vector is a clause.
 #'               Each integer identifies a literal. No element must be 0.
 #'               Negative integers are negated literals.
-#' @param assumptions an optional integer vector. Assumptions are preset values for literals in your formula.
-#'                   Each element correspond to a literal.
+#' @param assumptions an optional integer vector. Assumptions are fixed values for literals in your formula.
+#'                   Each element corresponds to a literal.
 #'                   Negative literals are FALSE, positive TRUE.
 #'
 #' @return a data.frame with two columns, variable and value. In case the solution status
 #'   is not PICOSAT_SATISFIABLE the resulting data.frame has 0 rows.
+#'   You can use `picosat_solution_status` to decide if the problem is satisfiable.
 #'
 #' @examples
 #' formula <- list(
 #'  c(-1, 2), # 1 => 2
 #'  c(-2, 3)  # 2 => 3
 #' )
-#' picosat_sat(formula, 1) # we set 1 to TRUE
+#' res <- picosat_sat(formula, c(1L)) # we set 1 to TRUE
+#' picosat_solution_status(res)
+#'
+#' @references
+#' PicoSAT version 965 by Armin Biere: \url{http://fmv.jku.at/picosat/}
+#'
 #' @useDynLib rpicosat rpicosat_solve
 #' @export
 picosat_sat <- function(formula, assumptions = integer(0L)) {
