@@ -1,6 +1,6 @@
 Package: rpicosat
 Type: Package
-Title: Solve SAT problems with the PicoSAT solver
+Title: Solve SAT Problems with the PicoSAT Solver
 Authors@R: c(
   person("Dirk", "Schumacher", email = "mail@dirk-schumacher.net", role = c("aut", "cre")),
   person("Armin", "Biere", role = c("ctb", "cph"), comment = "Author and copyright holder of included PicoSAT code"))
@@ -9,12 +9,10 @@ Description: Bindings for the PicoSAT solver to solve SAT problems.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Bytecompile: true
+ByteCompile: true
 RoxygenNote: 6.0.1
 URL: https://github.com/dirkschumacher/rpicosat
 BugReports: https://github.com/dirkschumacher/rpicosat/issues
 NeedsCompilation: yes
 Depends: R (>= 3.4.0)
-Imports: stats
-Suggests: testthat,
-    covr
+Suggests: testthat, covr
