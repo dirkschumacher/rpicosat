@@ -6,4 +6,3 @@
 ^README-.*\.png$
 ^appveyor\.yml$
 ^cran-comments\.md$
-^src/.+\.o$
