@@ -4,7 +4,7 @@
 \alias{picosat_sat}
 \title{Solve SAT problems with the PicoSAT solver}
 \usage{
-picosat_sat(formula, assumptions = integer(0))
+picosat_sat(formula, assumptions = integer(0L))
 }
 \arguments{
 \item{formula}{a list of integer vectors. Each vector is a clause.

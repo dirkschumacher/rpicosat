@@ -22,16 +22,16 @@
 #' picosat_sat(formula, 1) # we set 1 to TRUE
 #' @useDynLib rpicosat rpicosat_solve
 #' @export
-picosat_sat <- function(formula, assumptions = integer(0)) {
-  stopifnot(is.list(formula), length(formula) > 0)
+picosat_sat <- function(formula, assumptions = integer(0L)) {
+  stopifnot(is.list(formula), length(formula) > 0L)
 
   literals <- as.integer(unlist(lapply(formula, function(x) {
     if (!is.numeric(x)) stop("Clauses must be integer vectors.", call. = FALSE)
-    if (any(x == 0) || anyNA(x)) stop("literals cannot be 0 or NA.", call. = FALSE)
+    if (any(x == 0L) || anyNA(x)) stop("literals cannot be 0 or NA.", call. = FALSE)
     c(x, 0L)
   }), use.names = FALSE))
 
-  stopifnot(length(literals) > 0, is.integer(literals))
+  stopifnot(length(literals) > 0L, is.integer(literals))
   stopifnot(length(assumptions) <= length(literals), is.numeric(literals))
 
   if (!all(abs(assumptions) %in% unique(abs(literals)))) {
@@ -43,19 +43,28 @@ picosat_sat <- function(formula, assumptions = integer(0)) {
                as.integer(assumptions), PACKAGE = "rpicosat")
 
   # convert to a
-  assignment <- res[[2]]
-  if (!anyNA(assignment) && res[[1]] == 10) {
+  assignment <- res[[2L]]
+  if (!anyNA(assignment) && res[[1L]] == 10L) {
     solution_df <- data.frame(variable = as.integer(abs(assignment)),
-                              value = assignment > 0)
+                              value = assignment > 0L)
   } else {
-    solution_df <- data.frame(variable = integer(0),
-                              value = logical(0))
+    solution_df <- data.frame(variable = integer(0L),
+                              value = logical(0L))
   }
-  solution_status <- if (res[[1]] == 10) "PICOSAT_SATISFIABLE"
-                      else if (res[[1]] == 20) "PICOSAT_UNSATISFIABLE"
+  solution_status <- if (res[[1L]] == 10L) "PICOSAT_SATISFIABLE"
+                      else if (res[[1L]] == 20L) "PICOSAT_UNSATISFIABLE"
                       else "PICOSAT_UNKNOWN"
   class(solution_df) <- c("picosat_solution", class(solution_df))
   attr(solution_df, "picosat_solution_status") <- solution_status
+
+  # add statistics
+  attr(solution_df, "picosat_variables") <- res[[3L]]
+  attr(solution_df, "picosat_added_original_clauses") <- res[[4L]]
+  attr(solution_df, "picosat_decisions") <- res[[5L]]
+  attr(solution_df, "picosat_visits") <- res[[6L]]
+  attr(solution_df, "picosat_propagations") <- res[[7L]]
+  attr(solution_df, "picosat_seconds") <- res[[8L]]
+
   solution_df
 }
 
@@ -69,7 +78,7 @@ picosat_sat <- function(formula, assumptions = integer(0)) {
 #' @export
 #' @rdname picosat_solution_status
 picosat_solution_status <- function(x) {
-  UseMethod("picosat_solution_status")
+  UseMethod("picosat_solution_status", x)
 }
 
 #' @export
@@ -83,7 +92,8 @@ format.picosat_solution <- function(x, ...) {
   solver_status <- picosat_solution_status(x)
   paste0(
     if (solver_status == "PICOSAT_SATISFIABLE") {
-      paste0("Variables: ", length(unique(x$variable)), "\n")
+      paste0("Variables: ", picosat_variables(x), "\n",
+             "Clauses: ", picosat_added_original_clauses(x), "\n")
     },
     "Solver status: ", solver_status
   )
@@ -94,4 +104,106 @@ print.picosat_solution <- function(x, ...) {
   cat(format(x))
   cat("\n")
   invisible()
+}
+
+#' The number of variables in a model
+#'
+#' @param x an object
+#' @return an integer vector of length 1
+#' @export
+#' @rdname picosat_variables
+picosat_variables <- function(x) {
+  UseMethod("picosat_variables", x)
+}
+
+#' @export
+#' @rdname picosat_variables
+picosat_variables.picosat_solution <- function(x) {
+  as.integer(attr(x, "picosat_variables", exact = TRUE))
+}
+
+#' The number of original clauses
+#'
+#' @param x an object
+#'
+#' @return an integer vector of length 1
+#' @export
+#' @rdname picosat_added_original_clauses
+picosat_added_original_clauses <- function(x) {
+  UseMethod("picosat_added_original_clauses", x)
+}
+
+#' @export
+#' @rdname picosat_added_original_clauses
+picosat_added_original_clauses.picosat_solution <- function(x) {
+  as.integer(attr(x, "picosat_added_original_clauses", exact = TRUE))
+}
+
+
+#' The number of decisions during a search
+#'
+#' @param x an object
+#' @return an integer vector of length 1
+#' @export
+#' @rdname picosat_decisions
+picosat_decisions <- function(x) {
+  UseMethod("picosat_decisions", x)
+}
+
+#' @export
+#' @rdname picosat_decisions
+picosat_decisions.picosat_solution <- function(x) {
+  as.integer(attr(x, "picosat_decisions", exact = TRUE))
+}
+
+
+#' The number of visits during a search
+#'
+#' @param x an object
+#'
+#' @return an integer vector of length 1
+#' @export
+#' @rdname picosat_visits
+picosat_visits <- function(x) {
+  UseMethod("picosat_visits", x)
+}
+
+#' @export
+#' @rdname picosat_visits
+picosat_visits.picosat_solution <- function(x) {
+  as.integer(attr(x, "picosat_visits", exact = TRUE))
+}
+
+#' The number of propagations during a search
+#'
+#' @param x an object
+#'
+#' @return an integer vector of length 1
+#' @export
+#' @rdname picosat_propagations
+picosat_propagations <- function(x) {
+  UseMethod("picosat_propagations", x)
+}
+
+#' @export
+#' @rdname picosat_propagations
+picosat_propagations.picosat_solution <- function(x) {
+  as.integer(attr(x, "picosat_propagations", exact = TRUE))
+}
+
+#' Time spent in `picosat_sat`
+#'
+#' @param x an object
+#'
+#' @return a numeric vector of length 1
+#' @export
+#' @rdname picosat_seconds
+picosat_seconds <- function(x) {
+  UseMethod("picosat_seconds", x)
+}
+
+#' @export
+#' @rdname picosat_seconds
+picosat_seconds.picosat_solution <- function(x) {
+  as.numeric(attr(x, "picosat_seconds", exact = TRUE))
 }
