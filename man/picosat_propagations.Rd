@@ -2,12 +2,9 @@
 % Please edit documentation in R/rpicosat.R
 \name{picosat_propagations}
 \alias{picosat_propagations}
-\alias{picosat_propagations.picosat_solution}
 \title{The number of propagations during a search}
 \usage{
 picosat_propagations(x)
-
-\method{picosat_propagations}{picosat_solution}(x)
 }
 \arguments{
 \item{x}{an object}

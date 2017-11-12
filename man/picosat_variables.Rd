@@ -2,12 +2,9 @@
 % Please edit documentation in R/rpicosat.R
 \name{picosat_variables}
 \alias{picosat_variables}
-\alias{picosat_variables.picosat_solution}
 \title{The number of variables in a model}
 \usage{
 picosat_variables(x)
-
-\method{picosat_variables}{picosat_solution}(x)
 }
 \arguments{
 \item{x}{an object}

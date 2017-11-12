@@ -2,12 +2,9 @@
 % Please edit documentation in R/rpicosat.R
 \name{picosat_added_original_clauses}
 \alias{picosat_added_original_clauses}
-\alias{picosat_added_original_clauses.picosat_solution}
 \title{The number of original clauses}
 \usage{
 picosat_added_original_clauses(x)
-
-\method{picosat_added_original_clauses}{picosat_solution}(x)
 }
 \arguments{
 \item{x}{an object}

@@ -2,12 +2,9 @@
 % Please edit documentation in R/rpicosat.R
 \name{picosat_visits}
 \alias{picosat_visits}
-\alias{picosat_visits.picosat_solution}
 \title{The number of visits during a search}
 \usage{
 picosat_visits(x)
-
-\method{picosat_visits}{picosat_solution}(x)
 }
 \arguments{
 \item{x}{an object}

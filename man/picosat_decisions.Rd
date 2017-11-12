@@ -2,12 +2,9 @@
 % Please edit documentation in R/rpicosat.R
 \name{picosat_decisions}
 \alias{picosat_decisions}
-\alias{picosat_decisions.picosat_solution}
 \title{The number of decisions during a search}
 \usage{
 picosat_decisions(x)
-
-\method{picosat_decisions}{picosat_solution}(x)
 }
 \arguments{
 \item{x}{an object}

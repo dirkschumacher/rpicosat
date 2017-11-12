@@ -2,12 +2,9 @@
 % Please edit documentation in R/rpicosat.R
 \name{picosat_seconds}
 \alias{picosat_seconds}
-\alias{picosat_seconds.picosat_solution}
 \title{Time spent in `picosat_sat`}
 \usage{
 picosat_seconds(x)
-
-\method{picosat_seconds}{picosat_solution}(x)
 }
 \arguments{
 \item{x}{an object}
