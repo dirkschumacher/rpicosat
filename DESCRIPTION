@@ -1,6 +1,6 @@
 Package: rpicosat
 Type: Package
-Title: R bindings for the PicoSAT SAT Solver
+Title: R Bindings for the PicoSAT SAT Solver
 Authors@R: c(
   person("Dirk", "Schumacher", email = "mail@dirk-schumacher.net", role = c("aut", "cre")),
   person("Armin", "Biere", role = c("ctb", "cph"), comment = "Author and copyright holder of included PicoSAT code"))
