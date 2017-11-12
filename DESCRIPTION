@@ -8,6 +8,7 @@ Version: 1.0.0
 Description: Bindings for the PicoSAT solver to solve Boolean satisfiability problems (SAT).
              The boolean satisfiability problem asks the question if a given boolean formula can be TRUE; 
              i.e. does there exist an assignment of TRUE/FALSE for each variable such that the whole formula is TRUE?
+             The package bundles PicoSAT solver release 965 by Armin Biere.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
