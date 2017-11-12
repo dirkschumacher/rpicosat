@@ -26,14 +26,33 @@ a satisfiable assignment of the
 literals or returns that the formula is not satisfiable.
 }
 \examples{
+# solve a boolean formula
+# (not a or b) and (not b or c)
+# each variable is an integer
+# negations are negative integers
 formula <- list(
- c(-1, 2), # 1 => 2
- c(-2, 3)  # 2 => 3
+ c(-1L, 2L),
+ c(-2L, 3L)
 )
-res <- picosat_sat(formula, c(1L)) # we set 1 to TRUE
+res <- picosat_sat(formula)
 picosat_solution_status(res)
+
+# set a variable to a fixed value
+# e.g. a = TRUE and b = TRUE
+res <- picosat_sat(formula, assumptions = c(1L, 2L))
+picosat_solution_status(res)
+
+# get further information about the solution process
+picosat_variables(res)
+picosat_added_original_clauses(res)
+picosat_decisions(res)
+picosat_propagations(res)
+picosat_visits (res)
+picosat_seconds(res)
 
 }
 \references{
 PicoSAT version 965 by Armin Biere: \url{http://fmv.jku.at/picosat/}
+
+A. Biere. PicoSAT Essentials. Journal on Satisfiability, Boolean Modeling and Computation, 4:75–97, 2008.
 }

@@ -7,7 +7,7 @@
 picosat_decisions(x)
 }
 \arguments{
-\item{x}{an object}
+\item{x}{a picosat solution object}
 }
 \value{
 an integer vector of length 1

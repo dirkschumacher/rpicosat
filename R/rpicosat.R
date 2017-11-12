@@ -16,15 +16,34 @@
 #'   You can use `picosat_solution_status` to decide if the problem is satisfiable.
 #'
 #' @examples
+#' # solve a boolean formula
+#' # (not a or b) and (not b or c)
+#' # each variable is an integer
+#' # negations are negative integers
 #' formula <- list(
-#'  c(-1, 2), # 1 => 2
-#'  c(-2, 3)  # 2 => 3
+#'  c(-1L, 2L),
+#'  c(-2L, 3L)
 #' )
-#' res <- picosat_sat(formula, c(1L)) # we set 1 to TRUE
+#' res <- picosat_sat(formula)
 #' picosat_solution_status(res)
+#'
+#' # set a variable to a fixed value
+#' # e.g. a = TRUE and b = TRUE
+#' res <- picosat_sat(formula, assumptions = c(1L, 2L))
+#' picosat_solution_status(res)
+#'
+#' # get further information about the solution process
+#' picosat_variables(res)
+#' picosat_added_original_clauses(res)
+#' picosat_decisions(res)
+#' picosat_propagations(res)
+#' picosat_visits (res)
+#' picosat_seconds(res)
 #'
 #' @references
 #' PicoSAT version 965 by Armin Biere: \url{http://fmv.jku.at/picosat/}
+#'
+#' A. Biere. PicoSAT Essentials. Journal on Satisfiability, Boolean Modeling and Computation, 4:75–97, 2008.
 #'
 #' @useDynLib rpicosat rpicosat_solve
 #' @export
@@ -114,23 +133,22 @@ print.picosat_solution <- function(x, ...) {
 
 #' The number of variables in a model
 #'
-#' @param x an object
+#' @param x a picosat solution object
 #' @return an integer vector of length 1
 #' @export
 #' @rdname picosat_variables
 picosat_variables <- function(x) {
-  UseMethod("picosat_variables", x)
+  UseMethod("picosat_variables")
 }
 
 #' @export
-#' @rdname picosat_variables
 picosat_variables.picosat_solution <- function(x) {
   as.integer(attr(x, "picosat_variables", exact = TRUE))
 }
 
 #' The number of original clauses
 #'
-#' @param x an object
+#' @param x a picosat solution object
 #'
 #' @return an integer vector of length 1
 #' @export
@@ -140,7 +158,6 @@ picosat_added_original_clauses <- function(x) {
 }
 
 #' @export
-#' @rdname picosat_added_original_clauses
 picosat_added_original_clauses.picosat_solution <- function(x) {
   as.integer(attr(x, "picosat_added_original_clauses", exact = TRUE))
 }
@@ -148,16 +165,15 @@ picosat_added_original_clauses.picosat_solution <- function(x) {
 
 #' The number of decisions during a search
 #'
-#' @param x an object
+#' @param x a picosat solution object
 #' @return an integer vector of length 1
 #' @export
 #' @rdname picosat_decisions
 picosat_decisions <- function(x) {
-  UseMethod("picosat_decisions", x)
+  UseMethod("picosat_decisions")
 }
 
 #' @export
-#' @rdname picosat_decisions
 picosat_decisions.picosat_solution <- function(x) {
   as.integer(attr(x, "picosat_decisions", exact = TRUE))
 }
@@ -165,51 +181,48 @@ picosat_decisions.picosat_solution <- function(x) {
 
 #' The number of visits during a search
 #'
-#' @param x an object
+#' @param x a picosat solution object
 #'
 #' @return an integer vector of length 1
 #' @export
 #' @rdname picosat_visits
 picosat_visits <- function(x) {
-  UseMethod("picosat_visits", x)
+  UseMethod("picosat_visits")
 }
 
 #' @export
-#' @rdname picosat_visits
 picosat_visits.picosat_solution <- function(x) {
   as.integer(attr(x, "picosat_visits", exact = TRUE))
 }
 
 #' The number of propagations during a search
 #'
-#' @param x an object
+#' @param x a picosat solution object
 #'
 #' @return an integer vector of length 1
 #' @export
 #' @rdname picosat_propagations
 picosat_propagations <- function(x) {
-  UseMethod("picosat_propagations", x)
+  UseMethod("picosat_propagations")
 }
 
 #' @export
-#' @rdname picosat_propagations
 picosat_propagations.picosat_solution <- function(x) {
   as.integer(attr(x, "picosat_propagations", exact = TRUE))
 }
 
 #' Time spent in `picosat_sat`
 #'
-#' @param x an object
+#' @param x a picosat solution object
 #'
 #' @return a numeric vector of length 1
 #' @export
 #' @rdname picosat_seconds
 picosat_seconds <- function(x) {
-  UseMethod("picosat_seconds", x)
+  UseMethod("picosat_seconds")
 }
 
 #' @export
-#' @rdname picosat_seconds
 picosat_seconds.picosat_solution <- function(x) {
   as.numeric(attr(x, "picosat_seconds", exact = TRUE))
 }
