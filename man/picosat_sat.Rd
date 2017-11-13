@@ -2,7 +2,7 @@
 % Please edit documentation in R/rpicosat.R
 \name{picosat_sat}
 \alias{picosat_sat}
-\title{Solve SAT problems with the PicoSAT solver}
+\title{Solve SAT problems with the 'PicoSAT' solver}
 \usage{
 picosat_sat(formula, assumptions = integer(0L))
 }

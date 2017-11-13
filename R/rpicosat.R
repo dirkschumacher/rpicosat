@@ -1,4 +1,4 @@
-#' Solve SAT problems with the PicoSAT solver
+#' Solve SAT problems with the 'PicoSAT' solver
 #'
 #' The solver takes a formula in conjunctive normal form and finds
 #' a satisfiable assignment of the
