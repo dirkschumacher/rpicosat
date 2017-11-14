@@ -4,7 +4,7 @@ Title: R Bindings for the 'PicoSAT' SAT Solver
 Authors@R: c(
   person("Dirk", "Schumacher", email = "mail@dirk-schumacher.net", role = c("aut", "cre")),
   person("Armin", "Biere", role = c("ctb", "cph"), comment = "Author and copyright holder of included PicoSAT code"))
-Version: 1.0.0
+Version: 1.0.0.9000
 Description: Bindings for the 'PicoSAT' solver to solve Boolean satisfiability problems (SAT).
              The boolean satisfiability problem asks the question if a given boolean formula can be TRUE; 
              i.e. does there exist an assignment of TRUE/FALSE for each variable such that the whole formula is TRUE?
