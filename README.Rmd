@@ -27,6 +27,10 @@ R bindings to the [PicoSAT solver release 965](http://fmv.jku.at/picosat/) by Ar
 devtools::install_github("dirkschumacher/rpicosat")
 ```
 
+```{r, eval = FALSE}
+install.packages("rpicosat")
+```
+
 
 ## API
 

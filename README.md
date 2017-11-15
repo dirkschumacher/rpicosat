@@ -12,6 +12,10 @@ Install
 devtools::install_github("dirkschumacher/rpicosat")
 ```
 
+``` r
+install.packages("rpicosat")
+```
+
 API
 ---
 
