@@ -96,7 +96,7 @@ Tests
 
 ``` r
 covr::package_coverage()
-#> rpicosat Coverage: 39.40%
+#> rpicosat Coverage: 39.09%
 #> src/picosat.c: 37.41%
 #> R/rpicosat.R: 80.00%
 #> src/init.c: 100.00%
