@@ -8,9 +8,13 @@ R bindings to the [PicoSAT solver release 965](http://fmv.jku.at/picosat/) by Ar
 Install
 -------
 
+### Install development version
+
 ``` r
 devtools::install_github("dirkschumacher/rpicosat")
 ```
+
+### Install stable version from CRAN
 
 ``` r
 install.packages("rpicosat")
