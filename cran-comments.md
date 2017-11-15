@@ -1,11 +1,6 @@
-## Resubmission
-This is a resubmission. In this version I have:
+## Changes
 
-* Enclosed PicoSAT in single quotes in `DESCRIPTION`
-* Added more examples to `picosat_sat`
-* Explained SAT problems in the description file
-* Added a reference to one of the papers describing PicoSAT in `picosat_sat`. I could not find a paper with a DOI and also could not find any further information about the requested "authors (year) <DOI:...>" syntax. That is why I added the reference to the `picosat_sat` function.
-* Also added a link to the PicoSAT website
+This minor release fixes issues detected by rchk.
 
 ## Test environments
 * local OS X install, R 3.4.1
@@ -16,8 +11,8 @@ This is a resubmission. In this version I have:
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release.
+* Days since last update: 1
 
 ## Reverse dependencies
 
-This is a new release, so there are no reverse dependencies.
+There are no reverse dependencies.
