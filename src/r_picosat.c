@@ -29,44 +29,29 @@ SEXP rpicosat_solve(SEXP literals, SEXP assumptions) {
       int val = picosat_deref(pico_ptr, i);
       INTEGER(solution)[i - 1] = val * i;
     }
-    UNPROTECT(1);
   } else {
     // set solution to NA
-    solution = PROTECT(allocVector(INTSXP, 1));
-    INTEGER(solution)[0] = NA_INTEGER;
-    UNPROTECT(1);
+    solution = PROTECT(ScalarInteger(NA_INTEGER));
   }
 
   // extract statistics
   // number of variables
-  SEXP no_vars = PROTECT(allocVector(INTSXP, 1));
-  INTEGER(no_vars)[0] = picosat_variables(pico_ptr);
-  UNPROTECT(1);
+  SEXP no_vars = PROTECT(ScalarInteger(picosat_variables(pico_ptr)));
 
   // number of clauses
-  SEXP no_clauses = PROTECT(allocVector(INTSXP, 1));
-  INTEGER(no_clauses)[0] = picosat_added_original_clauses(pico_ptr);
-  UNPROTECT(1);
+  SEXP no_clauses = PROTECT(ScalarInteger(picosat_added_original_clauses(pico_ptr)));
 
   // number of decisions
-  SEXP no_dec = PROTECT(allocVector(INTSXP, 1));
-  INTEGER(no_dec)[0] = picosat_decisions(pico_ptr);
-  UNPROTECT(1);
+  SEXP no_dec = PROTECT(ScalarInteger(picosat_decisions(pico_ptr)));
 
   // number of visits
-  SEXP no_visits = PROTECT(allocVector(INTSXP, 1));
-  INTEGER(no_visits)[0] = picosat_visits(pico_ptr);
-  UNPROTECT(1);
+  SEXP no_visits = PROTECT(ScalarInteger(picosat_visits(pico_ptr)));
 
   // seconds it took so solve
-  SEXP seconds = PROTECT(allocVector(REALSXP, 1));
-  REAL(seconds)[0] = picosat_seconds(pico_ptr);
-  UNPROTECT(1);
+  SEXP seconds = PROTECT(ScalarReal(picosat_seconds(pico_ptr)));
 
   // seconds it took so solve
-  SEXP no_propagations = PROTECT(allocVector(INTSXP, 1));
-  INTEGER(no_propagations)[0] = picosat_propagations(pico_ptr);
-  UNPROTECT(1);
+  SEXP no_propagations = PROTECT(ScalarInteger(picosat_propagations(pico_ptr)));
 
   picosat_reset(pico_ptr);
 
@@ -82,6 +67,6 @@ SEXP rpicosat_solve(SEXP literals, SEXP assumptions) {
   SET_VECTOR_ELT(out, 5, no_visits);
   SET_VECTOR_ELT(out, 6, no_propagations);
   SET_VECTOR_ELT(out, 7, seconds);
-  UNPROTECT(2);
+  UNPROTECT(9);
   return out;
 }
