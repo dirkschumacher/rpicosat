@@ -20,18 +20,19 @@ SEXP rpicosat_solve(SEXP literals, SEXP assumptions) {
 
   // solve it
   int res = picosat_sat(pico_ptr, -1);
-  SEXP solution;
+  SEXP r_solution;
   if (res == PICOSAT_SATISFIABLE) {
     // get the variable solutions
     int nvars = picosat_variables(pico_ptr);
-    solution = PROTECT(allocVector(INTSXP, nvars));
+    r_solution = PROTECT(allocVector(INTSXP, nvars));
+    int * solution = INTEGER(r_solution);
     for (int i = 1; i <= nvars; i++) {
       int val = picosat_deref(pico_ptr, i);
-      INTEGER(solution)[i - 1] = val * i;
+      solution[i - 1] = val * i;
     }
   } else {
     // set solution to NA
-    solution = PROTECT(ScalarInteger(NA_INTEGER));
+    r_solution = PROTECT(ScalarInteger(NA_INTEGER));
   }
 
   // extract statistics
@@ -56,11 +57,10 @@ SEXP rpicosat_solve(SEXP literals, SEXP assumptions) {
   picosat_reset(pico_ptr);
 
   // build return object
-  SEXP solution_code = PROTECT(allocVector(INTSXP, 1));
-  INTEGER(solution_code)[0] = res;
+  SEXP solution_code = PROTECT(ScalarInteger(res));
   SEXP out = PROTECT(allocVector(VECSXP, 8));
   SET_VECTOR_ELT(out, 0, solution_code);
-  SET_VECTOR_ELT(out, 1, solution);
+  SET_VECTOR_ELT(out, 1, r_solution);
   SET_VECTOR_ELT(out, 2, no_vars);
   SET_VECTOR_ELT(out, 3, no_clauses);
   SET_VECTOR_ELT(out, 4, no_dec);
