@@ -1,12 +1,13 @@
 ---
 output:
   md_document:
-    variant: markdown_github
+    variant: gfm
 ---
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/dirkschumacher/rpicosat?branch=master&svg=true)](https://ci.appveyor.com/project/dirkschumacher/rpicosat)
-[![Travis-CI Build Status](https://travis-ci.org/dirkschumacher/rpicosat.svg?branch=master)](https://travis-ci.org/dirkschumacher/rpicosat)
-[![Coverage Status](https://img.shields.io/codecov/c/github/dirkschumacher/rpicosat/master.svg)](https://codecov.io/github/dirkschumacher/rpicosat?branch=master)
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/dirkschumacher/rpicosat/workflows/R-CMD-check/badge.svg)](https://github.com/dirkschumacher/rpicosat/actions)
 [![CRAN Status](http://www.r-pkg.org/badges/version/rpicosat)](https://CRAN.R-project.org/package=rpicosat)
+[![Codecov test coverage](https://codecov.io/gh/dirkschumacher/rpicosat/branch/master/graph/badge.svg)](https://app.codecov.io/gh/dirkschumacher/rpicosat?branch=master)
+<!-- badges: end -->
 
 
 ```{r, echo = FALSE}
