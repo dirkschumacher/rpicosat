@@ -11,7 +11,6 @@ Description: Bindings for the 'PicoSAT' solver to solve Boolean satisfiability p
              The package bundles 'PicoSAT' solver release 965 <http://www.fmv.jku.at/picosat/>.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 ByteCompile: true
 RoxygenNote: 6.0.1
 URL: https://github.com/dirkschumacher/rpicosat
